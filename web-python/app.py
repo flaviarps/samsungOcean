@@ -8,15 +8,24 @@ SECRET_KEY = "pudim"
 app = Flask(__name__)
 app.config.from_object(__name__)
 
-@app.route('/hello')
-
 def conectar_bd():
         return sqlite3.connect(app.config['DATABASE'])
 
+@app.before_request
+def antes_requesicao():
+        g.bd = conectar_bd()
+
+@app.teardown_request
+def depois_requesicao(exc):
+        g.bd.close()
+
+@app.route('/')
+def exibir_entradas():
+        return render_template("exibir_entradas.html")
+
+@app.route('/hello')
 def pagina_inicial():
         return "Hello World"
-
-
 
 # Instalar os módulos
 # php install flask python-dotenv pyngrok

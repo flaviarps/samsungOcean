@@ -20,6 +20,7 @@ def depois_requesicao(exc):
         g.bd.close()
 
 @app.route('/')
+@app.route('/entradas')
 def exibir_entradas():
         return render_template("exibir_entradas.html")
 
@@ -41,3 +42,6 @@ def pagina_inicial():
 
 # Criar o database
 # sqlite3 blog.db < esquema.sql
+
+# rodar no browser
+# flask run
